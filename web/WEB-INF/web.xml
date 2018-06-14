@@ -13,4 +13,15 @@
         <servlet-name>index</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>bookView</servlet-name>
+        <servlet-class>servlets.BookViewServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>bookView</servlet-name>
+        <url-pattern>/book</url-pattern>
+    </servlet-mapping>
 </web-app>

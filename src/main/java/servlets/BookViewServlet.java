@@ -1,7 +1,7 @@
 package servlets;
 
-import entities.Book;
 import dao.BookDAO;
+import entities.Book;
 import utils.DBUtils;
 
 import javax.servlet.RequestDispatcher;
@@ -11,20 +11,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.List;
 
-public class BookListServlet extends HttpServlet {
+public class BookViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         Connection conn = DBUtils.getConnection();
-        List<Book> bookList = BookDAO.getAllBooks(conn);
+        Integer bookId = Integer.parseInt(req.getParameter("id"));
+
+        Book book = BookDAO.getBookById(conn, bookId);
+
         DBUtils.closeConnQuietly(conn);
-        req.setAttribute("bookList", bookList);
 
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/booklist.jsp");
+        req.setAttribute("bookId", book.getId());
+        req.setAttribute("bookTitle", book.getTitle());
+        req.setAttribute("bookDescription", book.getDescription());
+        req.setAttribute("bookPrice", book.getPrice());
+        req.setAttribute("bookAuthorsList", book.getAuthors());
+        req.setAttribute("bookGenresList", book.getGenres());
+
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/book.jsp");
         requestDispatcher.forward(req, resp);
-
     }
 
     @Override
