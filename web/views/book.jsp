@@ -5,7 +5,7 @@
     <title>${bookTitle}</title>
   </head>
   <body>
-    <h3>Book: ${bookTitle}</h3>
+    <h2>Book: ${bookTitle}</h2>
 
     <table border="1" cellpadding="5" cellspacing="1">
       <tr>
@@ -43,7 +43,7 @@
     </table>
 
   <form method="post">
-    <h4>${orderMsg}</h4>
+    <h3>${orderMsg}</h3>
     <table border="0">
       <tr>
         <td>First name:</td>

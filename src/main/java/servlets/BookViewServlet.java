@@ -29,8 +29,11 @@ public class BookViewServlet extends HttpServlet {
         final Integer bookId = Integer.parseInt(req.getParameter("id"));
 
         if(firstName != null && lastName != null && address != null && (quantity > 0)) {
-            OrderDAO.insertOrder(conn, new OrderDTO(firstName, lastName, address, quantity, bookId));
-            req.setAttribute("orderMsg", "Order accepted, order more");
+            if(OrderDAO.insertOrder(conn, new OrderDTO(firstName, lastName, address, quantity, bookId))) {
+                req.setAttribute("orderMsg", "Order accepted, order more");
+            } else {
+                req.setAttribute("orderMsg", "Order not accepted, try again");
+            }
         }
 
         Book book = BookDAO.getBookById(conn, bookId);

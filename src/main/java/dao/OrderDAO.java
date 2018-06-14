@@ -21,7 +21,8 @@ public class OrderDAO {
 
             pstm.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
+            return false;
         } finally {
             try {pstm.close();} catch (SQLException e) { }
         }
