@@ -19,7 +19,7 @@ public class BookDAO {
         ResultSet rs = null;
         try {
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT id, name FROM authors;");
+            rs = stmt.executeQuery("SELECT id, name FROM authors ORDER BY name;");
             while ( rs.next() ) {
                 Integer id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -42,7 +42,7 @@ public class BookDAO {
         ResultSet rs = null;
         try {
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT id, name FROM genres;");
+            rs = stmt.executeQuery("SELECT id, name FROM genres ORDER BY name;");
             while ( rs.next() ) {
                 Integer id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -68,7 +68,8 @@ public class BookDAO {
                     "FROM books_authors " +
                     "INNER JOIN authors " +
                     "ON author_id = id " +
-                    "WHERE book_id = " + Id + "; ");
+                    "WHERE book_id = " + Id + " " +
+                    "ORDER BY authors.name; ");
             while (rs.next()) {
                 Integer id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -95,7 +96,8 @@ public class BookDAO {
                     "FROM books_genres " +
                     "INNER JOIN genres " +
                     "ON genre_id = id " +
-                    "WHERE book_id = " + Id + "; ");
+                    "WHERE book_id = " + Id + " " +
+                    "ORDER BY genres.name; ");
             while (rs.next()) {
                 Integer id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -145,7 +147,7 @@ public class BookDAO {
         ResultSet rs = null;
         try {
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT id, title, description, price FROM books;");
+            rs = stmt.executeQuery("SELECT id, title, description, price FROM books ORDER BY title;");
             while ( rs.next() ) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
@@ -183,7 +185,8 @@ public class BookDAO {
             }
 
             sql += ")) AS filtered_books " +
-                    "INNER JOIN books ON book_id = id;";
+                    "INNER JOIN books ON book_id = id " +
+                    "ORDER BY title;";
 
             rs = stmt.executeQuery(sql);
 
@@ -224,7 +227,8 @@ public class BookDAO {
             }
 
             sql += ")) AS filtered_books " +
-                    "INNER JOIN books ON book_id = id;";
+                    "INNER JOIN books ON book_id = id " +
+                    "ORDER BY title;";
 
             rs = stmt.executeQuery(sql);
 
@@ -275,7 +279,8 @@ public class BookDAO {
             }
 
             sql += ")) AS filtered_books " +
-                    "INNER JOIN books ON book_id = id;";
+                    "INNER JOIN books ON book_id = id " +
+                    "ORDER BY title;";
 
             rs = stmt.executeQuery(sql);
 

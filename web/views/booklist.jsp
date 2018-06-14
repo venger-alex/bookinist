@@ -15,7 +15,7 @@
         <tr>
           <td><b>Filter by genres:</b></td>
           <td>
-            <c:forEach items="${genreFilterMap.keySet()}" var="genre">
+            <c:forEach items="${genreList}" var="genre">
               <c:if test="${genreFilterMap.get(genre) == true}">
                 <label><input checked type="checkbox" name="g${genre.getId()}" />${genre.getName()}</label>
               </c:if>
@@ -28,7 +28,7 @@
         <tr>
           <td><b>Filter by authors:</b></td>
           <td>
-            <c:forEach items="${authorFilterMap.keySet()}" var="author">
+            <c:forEach items="${authorList}" var="author">
               <c:if test="${authorFilterMap.get(author) == true}">
                 <label><input checked type="checkbox" name="a${author.getId()}" />${author.getName()}</label>
               </c:if>
