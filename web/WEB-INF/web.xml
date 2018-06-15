@@ -36,6 +36,36 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>adminBookAdd</servlet-name>
+        <servlet-class>servlets.admin.BookAddServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminBookAdd</servlet-name>
+        <url-pattern>/admin/addBook</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminBookEdit</servlet-name>
+        <servlet-class>servlets.admin.BookEditServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminBookEdit</servlet-name>
+        <url-pattern>/admin/editBook</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminBookDel</servlet-name>
+        <servlet-class>servlets.admin.BookDelServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminBookDel</servlet-name>
+        <url-pattern>/admin/delBook</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>adminAuthorList</servlet-name>
         <servlet-class>servlets.admin.AuthorListServlet</servlet-class>
     </servlet>

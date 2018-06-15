@@ -1,5 +1,6 @@
 package dao;
 
+import dto.BookDTO;
 import dto.OrderDTO;
 import entities.Author;
 import entities.Book;
@@ -457,6 +458,184 @@ public class BookDAO {
             return false;
         } finally {
             try {pstm.close();} catch (SQLException e) { }
+        }
+
+        return true;
+    }
+
+
+
+    private static Boolean deleteBookAuthors(Connection conn, BookDTO book) throws SQLException {
+        String sql = "DELETE FROM books_authors WHERE book_id = ?";
+        PreparedStatement pstm = null;
+        try {
+            pstm = conn.prepareStatement(sql);
+
+            pstm.setInt(1, book.id);
+
+            pstm.executeUpdate();
+        } finally {
+            pstm.close();
+        }
+        return true;
+    }
+
+    private static Boolean deleteBookGenres(Connection conn, BookDTO book) throws SQLException {
+        String sql = "DELETE FROM books_genres WHERE book_id = ?";
+        PreparedStatement pstm = null;
+        try {
+            pstm = conn.prepareStatement(sql);
+
+            pstm.setInt(1, book.id);
+
+            pstm.executeUpdate();
+        } finally {
+            pstm.close();
+        }
+        return true;
+    }
+
+    private static Boolean insertBookAuthors(Connection conn, BookDTO book) throws SQLException {
+        List<String> authorsId = book.authorsId;
+        if(authorsId == null && authorsId.size() == 0) {
+            // Nothing to insert
+            return true;
+        }
+
+        for (String authorId : authorsId) {
+            String sql = "INSERT INTO books_authors(book_id,author_id) VALUES (?,?)";
+            PreparedStatement pstm = null;
+
+            try {
+                pstm = conn.prepareStatement(sql);
+
+                pstm.setInt(1, book.id);
+                pstm.setInt(2, Integer.parseInt(authorId));
+
+                pstm.executeUpdate();
+            } finally {
+                pstm.close();
+            }
+
+        }
+
+        return true;
+    }
+
+    private static Boolean insertBookGenres(Connection conn, BookDTO book) throws SQLException {
+        List<String> genresId = book.genresId;
+        if(genresId == null && genresId.size() == 0) {
+            // Nothing to insert
+            return true;
+        }
+
+        for (String genreId : genresId) {
+            String sql = "INSERT INTO books_genres(book_id,genre_id) VALUES (?,?)";
+            PreparedStatement pstm = null;
+
+            try {
+                pstm = conn.prepareStatement(sql);
+
+                pstm.setInt(1, book.id);
+                pstm.setInt(2, Integer.parseInt(genreId));
+
+                pstm.executeUpdate();
+            } finally {
+                pstm.close();
+            }
+
+        }
+
+        return true;
+    }
+
+    public static Boolean updateBook(Connection conn, BookDTO book) {
+        Statement stmt = null;
+        try {
+            conn.setAutoCommit(false);
+            stmt = conn.createStatement();
+
+            String sql = "UPDATE books SET title='"+book.title+"', description='"+book.description+"', price="+book.price+" WHERE id="+book.id;
+
+            stmt.executeUpdate(sql);
+
+            deleteBookAuthors(conn, book);
+            insertBookAuthors(conn, book);
+            deleteBookGenres(conn, book);
+            insertBookGenres(conn, book);
+
+            conn.commit();
+
+        } catch (SQLException e) {
+            //throw new RuntimeException(e);
+            try {conn.rollback();} catch (SQLException ignore) {}
+            return false;
+        } finally {
+            try {stmt.close();} catch (SQLException e) { }
+            try {conn.setAutoCommit(true);} catch (SQLException ignore) {}
+
+        }
+
+        return true;
+    }
+
+    public static Boolean delBook(Connection conn, Integer id) {
+        Statement stmt = null;
+
+        try {
+            conn.setAutoCommit(false);
+
+            deleteBookAuthors(conn, new BookDTO(id));
+            deleteBookGenres(conn, new BookDTO(id));
+
+            stmt = conn.createStatement();
+
+            String sql = "DELETE FROM books WHERE id="+id;
+
+            stmt.executeUpdate(sql);
+
+            conn.commit();
+
+        } catch (SQLException e) {
+            //throw new RuntimeException(e);
+            try {conn.rollback();} catch (SQLException ignore) {}
+            return false;
+        } finally {
+            try {stmt.close();} catch (SQLException e) { }
+            try {conn.setAutoCommit(true);} catch (SQLException ignore) {}
+
+        }
+
+        return true;
+    }
+
+    public static Boolean insertBook(Connection conn, BookDTO book) {
+        Statement stmt = null;
+        try {
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+
+            String sql = "INSERT INTO books(title,description,price) VALUES ('"+book.title+"','"+book.description+"',"+book.price+") RETURNING id";
+
+            ResultSet resultSet = stmt.executeQuery(sql);
+            if(resultSet.next()) {
+                book.id = resultSet.getInt("id");
+            } else {
+                throw new RuntimeException(new SQLException("Creating book failed, no ID obtained"));
+            }
+
+            insertBookAuthors(conn, book);
+            insertBookGenres(conn, book);
+
+            conn.commit();
+        } catch (SQLException e) {
+            //throw new RuntimeException(e);
+            try {conn.rollback();} catch (SQLException ignore) {}
+            return false;
+        } finally {
+            try {stmt.close();} catch (SQLException e) { }
+            try {conn.setAutoCommit(true);} catch (SQLException ignore) {}
         }
 
         return true;

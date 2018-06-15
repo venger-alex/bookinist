@@ -46,6 +46,11 @@
       </table>
     </form>
 
+    <p align="left">
+      <a href="/admin/addBook" style="margin: 10px;"><h3 style="display:inline;">Add book...</h3></a>
+      <a href="/admin/authors/" target="_blank" style="margin: 10px;"><h3 style="display:inline;">Add/Edit authors...</h3></a>
+      <a href="/admin/genres/" target="_blank" style="margin: 10px;"><h3 style="display:inline;">Add/Edit genres...</h3></a>
+    </p>
     <table border="1" cellpadding="5" cellspacing="1" width="100%">
       <tr>
         <th>ID</th>
@@ -54,11 +59,13 @@
         <th>Price</th>
         <th>Authors</th>
         <th>Genres</th>
+        <th>Edit</th>
+        <th>Delete</th>
       </tr>
     <c:forEach items="${bookList}" var="book">
       <tr>
-        <td><a href="/book?id=${book.getId()}" target="_blank">${book.getId()}</a></td>
-        <td><a href="/book?id=${book.getId()}" target="_blank">${book.getTitle()}</a></td>
+        <td>${book.getId()}</td>
+        <td>${book.getTitle()}</td>
         <td>${book.getDescription()}</td>
         <td>${book.getPrice()}</td>
         <td>
@@ -77,6 +84,9 @@
           </c:forEach>
 
         </td>
+        <td><a href="/admin/editBook?id=${book.getId()}" >Edit...</a> </td>
+        <td><a href="/admin/delBook?id=${book.getId()}" >Delete...</a> </td>
+
       </tr>
     </c:forEach>
     </table>

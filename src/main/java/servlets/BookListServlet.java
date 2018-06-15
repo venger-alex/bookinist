@@ -81,7 +81,7 @@ public class BookListServlet extends HttpServlet {
 
         DBUtils.closeConnQuietly(conn);
 
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/booklist.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/bookList.jsp");
         requestDispatcher.forward(req, resp);
 
     }
