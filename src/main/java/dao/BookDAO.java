@@ -1,13 +1,11 @@
 package dao;
 
+import dto.OrderDTO;
 import entities.Author;
 import entities.Book;
 import entities.Genre;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,6 +127,29 @@ public class BookDAO {
                 List<Author> bookAuthors = getBookAuthors(conn, Id);
                 List<Genre> bookGenres = getBookGenres(conn, Id);
                 res = new Book(id, title, description, price, bookAuthors, bookGenres);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {rs.close();} catch (SQLException e) { }
+            try {stmt.close();} catch (SQLException e) { }
+        }
+
+        return res;
+    }
+
+    public static Author getAuthorById(Connection conn, Integer Id) {
+        Author res = null;
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT id, name FROM authors WHERE id = " + Id + " LIMIT 1;");
+            if(rs.next()) {
+                Integer id = rs.getInt("id");
+                String name = rs.getString("name");
+                res = new Author(id, name);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -300,6 +321,64 @@ public class BookDAO {
             try {stmt.close();} catch (SQLException e) { }
         }
         return resList;
+    }
+
+    public static Boolean insertAuthor(Connection conn, String name) {
+        String sql = "INSERT INTO authors(name) VALUES (?)";
+        PreparedStatement pstm = null;
+        try {
+            pstm = conn.prepareStatement(sql);
+
+            pstm.setString(1, name);
+
+            pstm.executeUpdate();
+        } catch (SQLException e) {
+            //throw new RuntimeException(e);
+            return false;
+        } finally {
+            try {pstm.close();} catch (SQLException e) { }
+        }
+
+        return true;
+    }
+
+    public static Boolean updateAuthor(Connection conn, Integer id, String name) {
+        String sql = "UPDATE authors SET name=? WHERE id=?";
+        PreparedStatement pstm = null;
+        try {
+            pstm = conn.prepareStatement(sql);
+
+            pstm.setString(1, name);
+            pstm.setInt(2, id);
+
+            pstm.executeUpdate();
+        } catch (SQLException e) {
+            //throw new RuntimeException(e);
+            return false;
+        } finally {
+            try {pstm.close();} catch (SQLException e) { }
+        }
+
+        return true;
+    }
+
+    public static Boolean delAuthor(Connection conn, Integer id) {
+        String sql = "DELETE FROM authors WHERE id=?";
+        PreparedStatement pstm = null;
+        try {
+            pstm = conn.prepareStatement(sql);
+
+            pstm.setInt(1, id);
+
+            pstm.executeUpdate();
+        } catch (SQLException e) {
+            //throw new RuntimeException(e);
+            return false;
+        } finally {
+            try {pstm.close();} catch (SQLException e) { }
+        }
+
+        return true;
     }
 
 }

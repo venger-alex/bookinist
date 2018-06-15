@@ -35,7 +35,46 @@
         <url-pattern>/admin/</url-pattern>
     </servlet-mapping>
 
-    
+    <servlet>
+        <servlet-name>adminAuthorList</servlet-name>
+        <servlet-class>servlets.admin.AuthorListServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminAuthorList</servlet-name>
+        <url-pattern>/admin/authors/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminAuthorAdd</servlet-name>
+        <servlet-class>servlets.admin.AuthorAddServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminAuthorAdd</servlet-name>
+        <url-pattern>/admin/addAuthor</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminAuthorEdit</servlet-name>
+        <servlet-class>servlets.admin.AuthorEditServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminAuthorEdit</servlet-name>
+        <url-pattern>/admin/editAuthor</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminAuthorDel</servlet-name>
+        <servlet-class>servlets.admin.AuthorDelServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminAuthorDel</servlet-name>
+        <url-pattern>/admin/delAuthor</url-pattern>
+    </servlet-mapping>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Admin</web-resource-name>
