@@ -75,6 +75,48 @@
         <url-pattern>/admin/delAuthor</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>adminGenreList</servlet-name>
+        <servlet-class>servlets.admin.GenreListServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminGenreList</servlet-name>
+        <url-pattern>/admin/genres/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminGenreAdd</servlet-name>
+        <servlet-class>servlets.admin.GenreAddServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminGenreAdd</servlet-name>
+        <url-pattern>/admin/addGenre</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminGenreEdit</servlet-name>
+        <servlet-class>servlets.admin.GenreEditServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminGenreEdit</servlet-name>
+        <url-pattern>/admin/editGenre</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminGenreDel</servlet-name>
+        <servlet-class>servlets.admin.GenreDelServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminGenreDel</servlet-name>
+        <url-pattern>/admin/delGenre</url-pattern>
+    </servlet-mapping>
+
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Admin</web-resource-name>

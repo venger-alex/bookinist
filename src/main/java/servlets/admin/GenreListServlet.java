@@ -2,6 +2,7 @@ package servlets.admin;
 
 import dao.BookDAO;
 import entities.Author;
+import entities.Genre;
 import utils.DBUtils;
 
 import javax.servlet.RequestDispatcher;
@@ -13,19 +14,19 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
 
-public class AuthorListServlet extends HttpServlet {
+public class GenreListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Connection conn = DBUtils.getConnection();
 
-        List<Author> authorList = BookDAO.getAllAuthors(conn);
-        req.setAttribute("authorList", authorList);
+        List<Genre> genreList = BookDAO.getAllGenres(conn);
+        req.setAttribute("genreList", genreList);
 
         DBUtils.closeConnQuietly(conn);
 
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/authorList.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/genreList.jsp");
         requestDispatcher.forward(req, resp);
     }
 
