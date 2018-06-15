@@ -13,4 +13,156 @@
         <servlet-name>index</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>bookView</servlet-name>
+        <servlet-class>servlets.BookViewServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>bookView</servlet-name>
+        <url-pattern>/book</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <servlet-class>servlets.BookListServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminBookAdd</servlet-name>
+        <servlet-class>servlets.admin.BookAddServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminBookAdd</servlet-name>
+        <url-pattern>/admin/addBook</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminBookEdit</servlet-name>
+        <servlet-class>servlets.admin.BookEditServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminBookEdit</servlet-name>
+        <url-pattern>/admin/editBook</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminBookDel</servlet-name>
+        <servlet-class>servlets.admin.BookDelServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminBookDel</servlet-name>
+        <url-pattern>/admin/delBook</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminAuthorList</servlet-name>
+        <servlet-class>servlets.admin.AuthorListServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminAuthorList</servlet-name>
+        <url-pattern>/admin/authors/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminAuthorAdd</servlet-name>
+        <servlet-class>servlets.admin.AuthorAddServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminAuthorAdd</servlet-name>
+        <url-pattern>/admin/addAuthor</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminAuthorEdit</servlet-name>
+        <servlet-class>servlets.admin.AuthorEditServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminAuthorEdit</servlet-name>
+        <url-pattern>/admin/editAuthor</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminAuthorDel</servlet-name>
+        <servlet-class>servlets.admin.AuthorDelServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminAuthorDel</servlet-name>
+        <url-pattern>/admin/delAuthor</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>adminGenreList</servlet-name>
+        <servlet-class>servlets.admin.GenreListServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminGenreList</servlet-name>
+        <url-pattern>/admin/genres/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminGenreAdd</servlet-name>
+        <servlet-class>servlets.admin.GenreAddServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminGenreAdd</servlet-name>
+        <url-pattern>/admin/addGenre</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminGenreEdit</servlet-name>
+        <servlet-class>servlets.admin.GenreEditServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminGenreEdit</servlet-name>
+        <url-pattern>/admin/editGenre</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminGenreDel</servlet-name>
+        <servlet-class>servlets.admin.GenreDelServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminGenreDel</servlet-name>
+        <url-pattern>/admin/delGenre</url-pattern>
+    </servlet-mapping>
+
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <login-config>
+        <auth-method>BASIC</auth-method>
+    </login-config>
+
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
 </web-app>
