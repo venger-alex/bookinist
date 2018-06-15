@@ -24,4 +24,34 @@
         <servlet-name>bookView</servlet-name>
         <url-pattern>/book</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <servlet-class>servlets.BookListServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin/</url-pattern>
+    </servlet-mapping>
+
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <login-config>
+        <auth-method>BASIC</auth-method>
+    </login-config>
+
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
 </web-app>
